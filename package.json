@@ -1,0 +1,32 @@
+{
+  "name": "school-management-sytem",
+  "version": "1.0.0",
+  "description": "Restful API for School Management System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "keywords": [
+    "node",
+    "resful",
+    "api"
+  ],
+  "author": "Ishara Rathnayake",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^16.1.7",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "generate-password": "^1.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.7",
+    "morgan": "^1.9.1",
+    "nodemailer": "^6.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
