@@ -11,7 +11,7 @@ const teacherSchema = mongoose.Schema({
   position: { type: String, required: true },
   nic: { type: String, required: true },
   address: { type: String, required: true },
-  contact_nuber: { type: Number, required: true },
+  contact_number: { type: Number, required: true },
   subject: { type: String, required: true },
   email: { type: String, required: true },
   user: {
