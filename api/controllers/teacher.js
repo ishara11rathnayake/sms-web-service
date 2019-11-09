@@ -70,6 +70,11 @@ exports.teachers_get_user = async (req, res, next) => {
   const teacherId = req.params.teacherId;
 
   try {
+    const teacher = await Teacher.findById(teacherId);
+
+    res.status(200).json({
+      teacher: teacher
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({
