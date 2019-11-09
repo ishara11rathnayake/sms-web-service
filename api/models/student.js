@@ -19,7 +19,8 @@ const studentSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Parent",
     required: true
-  }
+  },
+  profileImage: { type: String }
 });
 
 module.exports = mongoose.model("Student", studentSchema);

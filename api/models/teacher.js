@@ -18,7 +18,8 @@ const teacherSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true
-  }
+  },
+  profileImage: { type: String }
 });
 
 module.exports = mongoose.model("Teacher", teacherSchema);

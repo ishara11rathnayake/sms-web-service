@@ -17,7 +17,8 @@ const clerkSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true
-  }
+  },
+  profileImage: { type: String }
 });
 
 module.exports = mongoose.model("Clerk", clerkSchema);

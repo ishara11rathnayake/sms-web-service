@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const generator = require("generate-password");
 
-// const { sendMail } = require("../helpers/sendEmail");
 const {
   sendNewPasswordEmail,
   sendStudentCredentials
@@ -112,7 +111,7 @@ exports.auth_teacher_register = async (req, res, next) => {
           const savedUser = await user.save();
 
           if (savedUser) {
-            const teacher = new Teacher({
+            let teacher = new Teacher({
               _id: new mongoose.Types.ObjectId(),
               full_name: req.body.fullName,
               name_with_initial: req.body.nameWithInitial,
@@ -128,6 +127,10 @@ exports.auth_teacher_register = async (req, res, next) => {
               email: req.body.email,
               user: savedUser._id
             });
+
+            if (req.file) {
+              teacher.profileImage = req.file.path;
+            }
 
             const savedTeacher = await teacher.save();
 
@@ -192,7 +195,7 @@ exports.auth_clerk_register = async (req, res, next) => {
           const savedUser = await user.save();
 
           if (savedUser) {
-            const clerk = new Clerk({
+            let clerk = new Clerk({
               _id: new mongoose.Types.ObjectId(),
               full_name: req.body.fullName,
               name_with_initial: req.body.nameWithInitial,
@@ -207,6 +210,10 @@ exports.auth_clerk_register = async (req, res, next) => {
               email: req.body.email,
               user: savedUser._id
             });
+
+            if (req.file) {
+              clerk.profileImage = req.file.path;
+            }
 
             const savedClerk = await clerk.save();
 
@@ -356,7 +363,7 @@ exports.auth_student_register = async (req, res, next) => {
         try {
           const savedUser = await user.save();
           if (savedUser) {
-            const student = new Student({
+            let student = new Student({
               _id: new mongoose.Types.ObjectId(),
               full_name: req.body.fullName,
               name_with_initial: req.body.nameWithInitial,
@@ -369,6 +376,10 @@ exports.auth_student_register = async (req, res, next) => {
               user: savedUser._id,
               parent: req.body.parentId
             });
+
+            if (req.file) {
+              student.profileImage = req.file.path;
+            }
 
             const savedStudent = await student.save();
 

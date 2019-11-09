@@ -51,5 +51,22 @@ const sendStudentCredentials = async (
   }
 };
 
+const sendUserProfileUpdateEmail = async (sendTo, name) => {
+  try {
+    const output = `
+        <h2>Hi ${name},</h2>
+        <h3></h3>
+        <p>Your profile sucessfully updated.</>
+        <p>Thank you,<br> SMS</p>
+      `;
+
+    const subject = "New account credentials";
+    sendMail(sendTo, subject, output).catch(console.error);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports.sendNewPasswordEmail = sendNewPasswordEmail;
 module.exports.sendStudentCredentials = sendStudentCredentials;
+module.exports.sendUserProfileUpdateEmail = sendUserProfileUpdateEmail;
