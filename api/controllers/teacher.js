@@ -33,6 +33,7 @@ exports.teachers_update_teacher = async (req, res, next) => {
       teacher: userDetails
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       error: error
     });
@@ -58,6 +59,19 @@ exports.teachers_delete_teacher = async (req, res, next) => {
       message: "Teacher successfully deleted."
     });
   } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error
+    });
+  }
+};
+
+exports.teachers_get_user = async (req, res, next) => {
+  const teacherId = req.params.teacherId;
+
+  try {
+  } catch (error) {
+    console.log(error);
     res.status(500).json({
       error: error
     });
