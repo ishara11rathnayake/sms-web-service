@@ -19,6 +19,6 @@ const upload = multer({
   limits: {
     fileSize: 1024 * 1024 * 10
   }
-}).single("profleImage");
+}).single("profileImage");
 
 module.exports.upload = upload;

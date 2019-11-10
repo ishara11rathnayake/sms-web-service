@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 
 const User = require("../models/user");
-const Teacher = require("../models/teacher");
+const Clerk = require("../models/clerk");
 
 const { sendUserProfileUpdateEmail } = require("../helpers/emailFormat");
 
 /**
- * update teacher details
+ * update clerk details
  */
-exports.teachers_update_teacher = async (req, res, next) => {
+exports.clerks_update_clerk = async (req, res, next) => {
   let updateOps = {};
   if (req.file) {
     updateOps = {
@@ -16,15 +16,15 @@ exports.teachers_update_teacher = async (req, res, next) => {
     };
   }
 
-  const teacherId = req.params.teacherId;
+  const clerkId = req.params.clerkId;
 
   for (const [key, value] of Object.entries(req.body)) {
     updateOps[key] = value;
   }
   try {
-    await Teacher.updateOne({ _id: teacherId }, { $set: updateOps });
+    await Clerk.updateOne({ _id: clerkId }, { $set: updateOps });
 
-    const userDetails = await Teacher.findById(teacherId);
+    const userDetails = await Clerk.findById(clerkId);
 
     sendUserProfileUpdateEmail(
       userDetails.email,
@@ -32,8 +32,8 @@ exports.teachers_update_teacher = async (req, res, next) => {
     ).catch(console.error);
 
     res.status(200).json({
-      message: "Teacher profile updated.",
-      teacher: userDetails
+      message: "Clerk profile updated.",
+      clerk: userDetails
     });
   } catch (error) {
     console.log(error);
@@ -44,25 +44,25 @@ exports.teachers_update_teacher = async (req, res, next) => {
 };
 
 /**
- * delete teacher
+ * delete clerk
  */
-exports.teachers_delete_teacher = async (req, res, next) => {
-  const teacherId = req.params.teacherId;
+exports.clerks_delete_clerk = async (req, res, next) => {
+  const clerkId = req.params.clerkId;
 
   try {
-    const teacher = await Teacher.findById(teacherId);
+    const clerk = await Clerk.findById(clerkId);
 
-    if (!teacher) {
+    if (!clerk) {
       return res.status(404).json({
-        message: "Teacher not found."
+        message: "Clerk not found."
       });
     }
 
-    await User.deleteOne({ _id: teacher.user });
-    await Teacher.deleteOne({ _id: teacherId });
+    await User.deleteOne({ _id: clerk.user });
+    await Clerk.deleteOne({ _id: clerkId });
 
     res.status(200).json({
-      message: "Teacher successfully deleted."
+      message: "Clerk successfully deleted."
     });
   } catch (error) {
     console.log(error);
@@ -75,20 +75,20 @@ exports.teachers_delete_teacher = async (req, res, next) => {
 /**
  * get teacher details by teacherId
  */
-exports.teachers_get_teacher = async (req, res, next) => {
-  const teacherId = req.params.teacherId;
+exports.clerks_get_clerk = async (req, res, next) => {
+  const clerkId = req.params.clerkId;
 
   try {
-    const teacher = await Teacher.findById(teacherId);
+    const clerk = await Clerk.findById(clerkId);
 
-    if (!teacher) {
+    if (!clerk) {
       return res.status(404).json({
-        message: "Teacher not found"
+        message: "Clerk not found"
       });
     }
 
     res.status(200).json({
-      teacher: teacher
+      clerk: clerk
     });
   } catch (error) {
     console.log(error);
@@ -101,13 +101,13 @@ exports.teachers_get_teacher = async (req, res, next) => {
 /**
  * get all teachers details
  */
-exports.teachers_get_all = async (req, res, next) => {
+exports.clerk_get_all = async (req, res, next) => {
   try {
-    const teachers = await Teacher.find();
+    const clerks = await Clerk.find();
 
     res.status(200).json({
-      count: teachers.length,
-      teacher: teachers
+      count: clerks.length,
+      clerks: clerks
     });
   } catch (error) {
     console.log(error);
