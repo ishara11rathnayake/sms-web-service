@@ -6,6 +6,8 @@ const { upload } = require("../helpers/uploadFiles");
 const AuthController = require("../controllers/auth");
 const TeacherController = require("../controllers/teacher");
 const ClerkController = require("../controllers/clerk");
+const ParentController = require("../controllers/parent");
+const StudentController = require("../controllers/student");
 
 /**
  * user login and user registration endpoints
@@ -53,5 +55,42 @@ router.delete(
 );
 router.get("/clerk", checkAuth, ClerkController.clerk_get_all);
 router.get("/clerk/:clerkId", checkAuth, ClerkController.clerks_get_clerk);
+
+/**
+ * manage parent endpoints
+ */
+router.patch(
+  "/parent/:parentId",
+  checkAuth,
+  ParentController.parents_update_parent
+);
+router.delete(
+  "/parent/:parentId",
+  checkAuth,
+  ParentController.parents_delete_parent
+);
+router.get("/parent", checkAuth, ParentController.parents_get_all);
+router.get("/parent/:parentId", checkAuth, ParentController.parents_get_parent);
+
+/**
+ * manage students endpoints
+ */
+router.patch(
+  "/student/:studentId",
+  checkAuth,
+  upload,
+  StudentController.students_update_student
+);
+router.delete(
+  "/student/:studentId",
+  checkAuth,
+  StudentController.students_delete_student
+);
+router.get("/student", checkAuth, StudentController.students_get_all);
+router.get(
+  "/student/:studentId",
+  checkAuth,
+  StudentController.students_get_student
+);
 
 module.exports = router;
