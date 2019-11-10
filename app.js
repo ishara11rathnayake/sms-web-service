@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const authRoutes = require("./api/routes/auth");
+const noticeRoutes = require("./api/routes/notice");
 
 /**
  * database connection
@@ -46,6 +47,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/user", authRoutes);
+app.use("/api/notice", noticeRoutes);
 
 /**
  * endpoint not found
