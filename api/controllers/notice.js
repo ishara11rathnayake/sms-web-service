@@ -21,7 +21,7 @@ exports.notices_create_notice = async (req, res, next) => {
       _id: new mongoose.Types.ObjectId(),
       title: req.body.title,
       details: req.body.details,
-      posted_by: req.body.postedBy,
+      posted_by: req.body.postedby,
       date: new Date(),
       user: req.userData.userId
     });
@@ -29,8 +29,7 @@ exports.notices_create_notice = async (req, res, next) => {
     const savedNotice = await notice.save();
 
     res.status(201).json({
-      message: "Notice created successfully.",
-      notice: savedNotice
+      message: "Notice created successfully."
     });
   } catch (error) {
     console.log(error);
@@ -124,7 +123,16 @@ exports.notices_get_all = async (req, res, next) => {
     const notices = await Notice.find();
 
     res.status(200).json({
-      notices: notices
+      count: notices.length,
+      notices: notices.map(notice => {
+        return {
+          id: notice._id,
+          title: notice.title,
+          details: notice.details,
+          postedby: notice.posted_by,
+          dateofpost: notice.date
+        };
+      })
     });
   } catch (error) {
     res.status(500).json({

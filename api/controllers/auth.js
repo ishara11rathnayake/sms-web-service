@@ -165,7 +165,7 @@ exports.auth_clerk_register = async (req, res, next) => {
     const emailExist = await User.find({ username: req.body.email });
 
     if (emailExist.length > 0) {
-      return res.status(400).json({
+      return res.status(403).json({
         error: "Email already exists."
       });
     }
@@ -227,6 +227,7 @@ exports.auth_clerk_register = async (req, res, next) => {
             }
           }
         } catch (error) {
+          console.log(error);
           res.status(500).json({
             error: error
           });
@@ -234,6 +235,7 @@ exports.auth_clerk_register = async (req, res, next) => {
       }
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       error: error
     });

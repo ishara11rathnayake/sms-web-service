@@ -107,7 +107,26 @@ exports.teachers_get_all = async (req, res, next) => {
 
     res.status(200).json({
       count: teachers.length,
-      teacher: teachers
+      teachers: teachers.map((teacher, i) => {
+        return {
+          teacherid: i + 1,
+          id: teacher._id,
+          fullname: teacher.full_name,
+          nameinitials: teacher.name_with_initial,
+          gender: teacher.gender,
+          dob: teacher.dob,
+          firstadmission: teacher.first_appoinment_date,
+          scladmission: teacher.appoinment_date_to_school,
+          position: teacher.position,
+          nic: teacher.nic,
+          address: teacher.address,
+          contact: teacher.contact_number,
+          email: teacher.email,
+          user: teacher.user,
+          file: teacher.profileImage,
+          subject: teacher.subject
+        };
+      })
     });
   } catch (error) {
     console.log(error);
