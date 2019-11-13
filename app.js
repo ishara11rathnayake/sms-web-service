@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 
 const authRoutes = require("./api/routes/auth");
 const noticeRoutes = require("./api/routes/notice");
+const marksRoutes = require("./api/routes/marks");
 
 /**
  * database connection
@@ -48,6 +49,7 @@ app.use((req, res, next) => {
 
 app.use("/api/user", authRoutes);
 app.use("/api/notice", noticeRoutes);
+app.use("/api/marks", marksRoutes);
 
 /**
  * endpoint not found
