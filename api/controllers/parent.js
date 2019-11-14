@@ -99,7 +99,19 @@ exports.parents_get_all = async (req, res, next) => {
 
     res.status(200).json({
       count: parents.length,
-      parents: parents
+      parents: parents.map((parent, i) => {
+        return {
+          parentId: parent._id,
+          fullname: parent.full_name,
+          nameinitials: parent.name_with_initial,
+          id: i + 1,
+          relationship: parent.relationship_to_student,
+          nic: parent.nic,
+          address: parent.address,
+          contact: parent.contact_number,
+          email: parent.email
+        };
+      })
     });
   } catch (error) {
     console.log(error);

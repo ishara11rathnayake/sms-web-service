@@ -107,7 +107,21 @@ exports.students_get_all = async (req, res, next) => {
 
     res.status(200).json({
       count: students.length,
-      students: students
+      students: students.map((student, i) => {
+        return {
+          studentId: student._id,
+          fullname: student.full_name,
+          nameinitials: student.name_with_initial,
+          id: i + 1,
+          gender: student.gender,
+          dob: student.dob,
+          grade: student.grade,
+          admissionnumber: student.admission_number,
+          admissiondate: student.admission_date,
+          profileImage: student.profileImage,
+          parentId: student.parent
+        };
+      })
     });
   } catch (error) {
     console.log(error);
