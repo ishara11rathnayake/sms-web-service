@@ -34,7 +34,7 @@ router.delete(
 );
 router.get("/teacher", checkAuth, TeacherController.teachers_get_all);
 router.get(
-  "/teacher/:teacherId",
+  "/teacher/:userId",
   checkAuth,
   TeacherController.teachers_get_teacher
 );

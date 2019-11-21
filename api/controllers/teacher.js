@@ -76,10 +76,10 @@ exports.teachers_delete_teacher = async (req, res, next) => {
  * get teacher details by teacherId
  */
 exports.teachers_get_teacher = async (req, res, next) => {
-  const teacherId = req.params.teacherId;
+  const userId = req.params.userId;
 
   try {
-    const teacher = await Teacher.findById(teacherId);
+    const teacher = await Teacher.find({ user: userId });
 
     if (!teacher) {
       return res.status(404).json({
@@ -88,7 +88,26 @@ exports.teachers_get_teacher = async (req, res, next) => {
     }
 
     res.status(200).json({
-      teacher: teacher
+      teacher: teacher.map((teacher, i) => {
+        return {
+          teacherid: i + 1,
+          id: teacher._id,
+          fullname: teacher.full_name,
+          nameinitials: teacher.name_with_initial,
+          gender: teacher.gender,
+          dob: teacher.dob,
+          firstadmission: teacher.first_appoinment_date,
+          scladmission: teacher.appoinment_date_to_school,
+          position: teacher.position,
+          nic: teacher.nic,
+          address: teacher.address,
+          contact: teacher.contact_number,
+          email: teacher.email,
+          user: teacher.user,
+          file: teacher.profileImage,
+          subject: teacher.subject
+        };
+      })
     });
   } catch (error) {
     console.log(error);
