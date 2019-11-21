@@ -88,7 +88,7 @@ exports.teachers_get_teacher = async (req, res, next) => {
     }
 
     res.status(200).json({
-      teacher: teacher.map((teacher, i) => {
+      teachers: teacher.map((teacher, i) => {
         return {
           teacherid: i + 1,
           id: teacher._id,
