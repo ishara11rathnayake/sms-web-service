@@ -119,7 +119,16 @@ exports.students_get_all = async (req, res, next) => {
           admissionnumber: student.admission_number,
           admissiondate: student.admission_date,
           profileImage: student.profileImage,
-          parent: student.parent
+          parent: {
+            parentId: student.parent._id,
+            fullname: student.parent.full_name,
+            nameinitials: student.parent.name_with_initial,
+            relationship: student.parent.relationship_to_student,
+            nic: student.parent.nic,
+            address: student.parent.address,
+            contact: student.parent.contact_number,
+            email: student.parent.email
+          }
         };
       })
     });
