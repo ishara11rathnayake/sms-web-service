@@ -140,3 +140,47 @@ exports.students_get_all = async (req, res, next) => {
     });
   }
 };
+
+exports.students_get_student_by_parentId = async (req, res, next) => {
+  try {
+    const parentId = req.query.parentId;
+
+    const students = await Student.find({ parent: parentId }).populate(
+      "parent"
+    );
+
+    res.status(200).json({
+      count: students.length,
+      students: students.map((student, i) => {
+        return {
+          studentId: student._id,
+          fullname: student.full_name,
+          nameinitials: student.name_with_initial,
+          id: i + 1,
+          gender: student.gender,
+          dob: student.dob,
+          grade: student.grade,
+          class: student.class,
+          admissionnumber: student.admission_number,
+          admissiondate: student.admission_date,
+          profileImage: student.profileImage,
+          parent: {
+            parentId: student.parent._id,
+            fullname: student.parent.full_name,
+            nameinitials: student.parent.name_with_initial,
+            relationship: student.parent.relationship_to_student,
+            nic: student.parent.nic,
+            address: student.parent.address,
+            contact: student.parent.contact_number,
+            email: student.parent.email
+          }
+        };
+      })
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error
+    });
+  }
+};
