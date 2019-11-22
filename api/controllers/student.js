@@ -103,7 +103,7 @@ exports.students_get_student = async (req, res, next) => {
  */
 exports.students_get_all = async (req, res, next) => {
   try {
-    const students = await Student.find();
+    const students = await Student.find().populate("parent");
 
     res.status(200).json({
       count: students.length,
@@ -119,7 +119,7 @@ exports.students_get_all = async (req, res, next) => {
           admissionnumber: student.admission_number,
           admissiondate: student.admission_date,
           profileImage: student.profileImage,
-          parentId: student.parent
+          parent: student.parent
         };
       })
     });
