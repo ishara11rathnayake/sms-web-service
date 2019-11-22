@@ -116,6 +116,7 @@ exports.students_get_all = async (req, res, next) => {
           gender: student.gender,
           dob: student.dob,
           grade: student.grade,
+          class: student.class,
           admissionnumber: student.admission_number,
           admissiondate: student.admission_date,
           profileImage: student.profileImage,

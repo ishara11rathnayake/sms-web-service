@@ -376,6 +376,7 @@ exports.auth_student_register = async (req, res, next) => {
               admission_date: req.body.admissionDate,
               admission_number: req.body.admissionNumber,
               grade: req.body.grade,
+              class: req.body.class,
               user: savedUser._id,
               parent: req.body.parentId
             });

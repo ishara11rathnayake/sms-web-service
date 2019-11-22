@@ -10,6 +10,7 @@ const studentSchema = mongoose.Schema({
   admission_number: { type: String, required: true },
   address: { type: String, required: true },
   grade: { type: String, required: true },
+  class: { type: String, required: true },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
