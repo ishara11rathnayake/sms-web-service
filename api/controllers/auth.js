@@ -274,7 +274,7 @@ exports.auth_parent_register = async (req, res, next) => {
         });
         sendNewPasswordEmail(
           req.body.email,
-          req.body.nameWithInitial,
+          req.body.nameinitials,
           password
         ).catch(console.error);
         try {
@@ -283,12 +283,12 @@ exports.auth_parent_register = async (req, res, next) => {
           if (savedUser) {
             const parent = new Parent({
               _id: new mongoose.Types.ObjectId(),
-              full_name: req.body.fullName,
-              name_with_initial: req.body.nameWithInitial,
-              relationship_to_student: req.body.relationshipToStudent,
+              full_name: req.body.fullname,
+              name_with_initial: req.body.nameinitials,
+              relationship_to_student: req.body.relationship,
               nic: req.body.nic,
               address: req.body.address,
-              contact_number: req.body.contactNumber,
+              contact_number: req.body.contact,
               email: req.body.email,
               user: savedUser._id
             });
