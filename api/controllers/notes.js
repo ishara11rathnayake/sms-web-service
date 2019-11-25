@@ -119,6 +119,23 @@ exports.notes_get_all = async (req, res, next) => {
   }
 };
 
+exports.notes_delete_note = async (req, res, next) => {
+  try {
+    const noteId = req.query.noteId;
+
+    await Note.deleteOne({ _id: noteId });
+
+    res.status(200).json({
+      message: "Note successfully deleted."
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error
+    });
+  }
+};
+
 async function asyncForEach(array, callback) {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array);

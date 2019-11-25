@@ -12,5 +12,6 @@ router.get(
   NotesController.notes_get_notes_by_teacherid
 );
 router.get("/", checkAuth, NotesController.notes_get_all);
+router.delete("/", checkAuth, NotesController.notes_delete_note);
 
 module.exports = router;
