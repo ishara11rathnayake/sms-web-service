@@ -14,7 +14,7 @@ exports.leaves_request_leave = async (req, res, next) => {
       leaveType: req.body.leaveType,
       reason: req.body.reason,
       assignedWorkId: req.file.path,
-      userId: req.body.userId,
+      userId: req.userData.userId,
       status: constants.PENDING
     });
 
