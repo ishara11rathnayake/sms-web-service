@@ -117,6 +117,71 @@ exports.leaves_get_leaves_by_userid = async (req, res, next) => {
   }
 };
 
+exports.leaves_delete_leaves = async (req, res, next) => {
+  try {
+    const leaveId = req.query.leaveId;
+
+    const leave = await Leave.findById({ _id: leaveId });
+
+    if (leave.status == constants.PENDING) {
+      await Leave.deleteOne({ _id: leaveId });
+
+      return res.status(200).json({
+        message: "Leave deleted successfully."
+      });
+    } else {
+      return res.status(200).json({
+        message: "You can not delete approved or rejected leave requests."
+      });
+    }
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+exports.leaves_get_leave_count = async (req, res, next) => {
+  try {
+    const userId = req.userData.userId;
+    const today = new Date();
+
+    let noOfSickLeave = 0;
+
+    const sickLeave = await Leave.find({
+      userId: userId,
+      leaveType: constants.SICK_LEAVE,
+      status: constants.APPROVED
+    });
+
+    const filterSickLeave = sickLeave.filter(leave => {
+      return leave.commencedDate.getFullYear() == today.getFullYear();
+    });
+
+    filterSickLeave.forEach(leave => {
+      noOfSickLeave += leave.noOfDays;
+    });
+
+    const casualLeave = await Leave.find({
+      userId: userId,
+      leaveType: constants.CASUAL_LEVE,
+      status: constants.APPROVED
+    });
+
+    const dutyLeave = await Leave.find({
+      userId: userId,
+      leaveType: constants.DUTY_LEAVE,
+      status: constants.APPROVED
+    });
+
+    res.status(200).json({
+      sickLeave: noOfSickLeave,
+      casualLeave: casualLeave.length,
+      dutyLeave: dutyLeave.length
+    });
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
 const handleError = (res, error) => {
   console.log(error);
   res.status(500).json({

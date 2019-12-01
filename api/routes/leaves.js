@@ -14,5 +14,7 @@ router.get(
 );
 router.patch("/approve", checkAuth, LeavesController.leaves_approve_leave);
 router.patch("/reject", checkAuth, LeavesController.leaves_reject_leave);
+router.get("/count", checkAuth, LeavesController.leaves_get_leave_count);
+router.delete("/", checkAuth, LeavesController.leaves_delete_leaves);
 
 module.exports = router;
