@@ -142,9 +142,6 @@ exports.leaves_delete_leaves = async (req, res, next) => {
 exports.leaves_get_leave_count = async (req, res, next) => {
   try {
     const userId = req.userData.userId;
-    const today = new Date();
-
-    let noOfSickLeave = 0;
 
     const sickLeave = await Leave.find({
       userId: userId,
@@ -152,13 +149,7 @@ exports.leaves_get_leave_count = async (req, res, next) => {
       status: constants.APPROVED
     });
 
-    const filterSickLeave = sickLeave.filter(leave => {
-      return leave.commencedDate.getFullYear() == today.getFullYear();
-    });
-
-    filterSickLeave.forEach(leave => {
-      noOfSickLeave += leave.noOfDays;
-    });
+    const noOfSickLeaves = getLeaveCount(sickLeave);
 
     const casualLeave = await Leave.find({
       userId: userId,
@@ -166,20 +157,38 @@ exports.leaves_get_leave_count = async (req, res, next) => {
       status: constants.APPROVED
     });
 
+    const noOfCasualLeaves = getLeaveCount(casualLeave);
+
     const dutyLeave = await Leave.find({
       userId: userId,
       leaveType: constants.DUTY_LEAVE,
       status: constants.APPROVED
     });
 
+    const noOfDutyLeaves = getLeaveCount(dutyLeave);
+
     res.status(200).json({
-      sickLeave: noOfSickLeave,
-      casualLeave: casualLeave.length,
-      dutyLeave: dutyLeave.length
+      sickLeave: noOfSickLeaves,
+      casualLeave: noOfCasualLeaves,
+      dutyLeave: noOfDutyLeaves
     });
   } catch (error) {
     handleError(res, error);
   }
+};
+
+const getLeaveCount = leaves => {
+  const today = new Date();
+
+  const filterLeaves = leaves.filter(leave => {
+    return leave.commencedDate.getFullYear() == today.getFullYear();
+  });
+
+  let noOfLeaves = 0;
+  filterLeaves.forEach(leave => {
+    noOfLeaves += leave.noOfDays;
+  });
+  return noOfLeaves;
 };
 
 const handleError = (res, error) => {
