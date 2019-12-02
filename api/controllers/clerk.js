@@ -78,16 +78,34 @@ exports.clerks_get_clerk = async (req, res, next) => {
   const userId = req.params.userId;
 
   try {
-    const clerk = await Clerk.find({ user: userId });
+    const clerks = await Clerk.find({ user: userId });
 
-    if (!clerk) {
+    if (!clerks) {
       return res.status(404).json({
         message: "Clerk not found"
       });
     }
 
     res.status(200).json({
-      clerk: clerk
+      clerk: clerks.map((clerk, i) => {
+        return {
+          id: i + 1,
+          clerkId: clerk._id,
+          fullname: clerk.full_name,
+          nameinitials: clerk.name_with_initial,
+          gender: clerk.gender,
+          dob: clerk.dob,
+          firstadmission: clerk.first_appoinment_date,
+          scladmission: clerk.appoinment_date_to_school,
+          position: clerk.position,
+          nic: clerk.nic,
+          address: clerk.address,
+          contact: clerk.contact_number,
+          email: clerk.email,
+          user: clerk.user,
+          file: clerk.profileImage
+        };
+      })
     });
   } catch (error) {
     console.log(error);
