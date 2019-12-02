@@ -127,10 +127,12 @@ exports.leaves_delete_leaves = async (req, res, next) => {
       await Leave.deleteOne({ _id: leaveId });
 
       return res.status(200).json({
+        status: 200,
         message: "Leave deleted successfully."
       });
     } else {
       return res.status(200).json({
+        status: 401,
         message: "You can not delete approved or rejected leave requests."
       });
     }
