@@ -87,7 +87,7 @@ exports.clerks_get_clerk = async (req, res, next) => {
     }
 
     res.status(200).json({
-      clerk: clerks.map((clerk, i) => {
+      clerks: clerks.map((clerk, i) => {
         return {
           id: i + 1,
           clerkId: clerk._id,
