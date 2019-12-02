@@ -54,7 +54,7 @@ router.delete(
   ClerkController.clerks_delete_clerk
 );
 router.get("/clerk", checkAuth, ClerkController.clerk_get_all);
-router.get("/clerk/:clerkId", checkAuth, ClerkController.clerks_get_clerk);
+router.get("/clerk/:userId", checkAuth, ClerkController.clerks_get_clerk);
 
 /**
  * manage parent endpoints

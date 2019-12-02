@@ -72,13 +72,13 @@ exports.clerks_delete_clerk = async (req, res, next) => {
 };
 
 /**
- * get teacher details by teacherId
+ * get clerk details by userId
  */
 exports.clerks_get_clerk = async (req, res, next) => {
-  const clerkId = req.params.clerkId;
+  const userId = req.params.userId;
 
   try {
-    const clerk = await Clerk.findById(clerkId);
+    const clerk = await Clerk.find({ user: userId });
 
     if (!clerk) {
       return res.status(404).json({
