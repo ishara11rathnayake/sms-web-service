@@ -8,7 +8,7 @@ const leavesSchema = mongoose.Schema({
   noOfDays: { type: Number, required: true },
   leaveType: { type: String, required: true },
   reason: { type: String, required: true },
-  assignedWorkId: { type: String, required: true },
+  assignedWorkId: { type: String },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
