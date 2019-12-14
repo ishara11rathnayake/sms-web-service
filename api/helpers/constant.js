@@ -4,5 +4,7 @@ module.exports = Object.freeze({
   APPROVED: "Approved",
   SICK_LEAVE: "Sick Leave",
   CASUAL_LEVE: "Casual Leave",
-  DUTY_LEAVE: "Duty Leave"
+  DUTY_LEAVE: "Duty Leave",
+  TEACHER: "Teacher",
+  Clerk: "Clerk"
 });

@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const generator = require("generate-password");
 
+const constants = require("../helpers/constant");
+
 const {
   sendNewPasswordEmail,
   sendStudentCredentials
@@ -401,6 +403,26 @@ exports.auth_student_register = async (req, res, next) => {
           });
         }
       }
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: error
+    });
+  }
+};
+
+/**
+ * get user details of all teachers and clerks
+ */
+exports.auth_get_all_employees = async (req, res, next) => {
+  try {
+    const users = await User.find({
+      $or: [{ user_type: constants.TEACHER }, { user_type: constants.Clerk }]
+    }).select("_id username user_type");
+
+    res.status(200).json({
+      count: users.length,
+      users: users
     });
   } catch (error) {
     res.status(500).json({

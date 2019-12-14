@@ -18,6 +18,8 @@ router.post("/clerk", upload, AuthController.auth_clerk_register);
 router.post("/parent", AuthController.auth_parent_register);
 router.post("/student", upload, AuthController.auth_student_register);
 
+router.get("/user", checkAuth, AuthController.auth_get_all_employees);
+
 /**
  * manage teacher endpoints
  */
