@@ -10,7 +10,7 @@ exports.salary_add_salary = async (req, res, next) => {
       month: req.body.month,
       earnings: req.body.earnings,
       deductions: req.body.deductions,
-      user: req.body.userId
+      user: req.body.user
     });
 
     await salary.save();
