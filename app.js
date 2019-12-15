@@ -11,6 +11,7 @@ const marksRoutes = require("./api/routes/marks");
 const notesRoutes = require("./api/routes/notes");
 const leavesRoutes = require("./api/routes/leaves");
 const salaryRoutes = require("./api/routes/salary");
+const achivementRoutes = require("./api/routes/achivement");
 
 /**
  * database connection
@@ -56,6 +57,7 @@ app.use("/api/marks", marksRoutes);
 app.use("/api/notes", notesRoutes);
 app.use("/api/leaves", leavesRoutes);
 app.use("/api/salary", salaryRoutes);
+app.use("/api/achivements", achivementRoutes);
 
 /**
  * endpoint not found

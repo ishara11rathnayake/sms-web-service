@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 
+const { Exam } = require("../models/exam");
+const { Competition } = require("../models/competition");
+
 const achievementSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  type: { type: String, required: true },
-  competition: { type: String },
-  level: { type: String, required: true },
-  place: { type: String, required: true },
-  date: { type: String, required: true },
-  ageGroup: { type: String, required: true },
-  student: {
+  oLevel: { type: [Exam] },
+  aLevel: { type: [Exam] },
+  extraCuricular: { type: [Competition] },
+  other: { type: [Competition] },
+  studentId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Student",
     required: true
