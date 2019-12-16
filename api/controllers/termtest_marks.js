@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { Mark, MarkModel } = require("../models/mark");
 const TermTestMarks = require("../models/termtest");
 
 exports.termtest_marks_create_marks = async (req, res, next) => {
