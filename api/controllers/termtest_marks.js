@@ -1,20 +1,20 @@
-const AssignmentMarks = require("../models/assignment_marks");
 const mongoose = require("mongoose");
 const { Mark, MarkModel } = require("../models/mark");
+const TermTestMarks = require("../models/termtest");
 
-exports.assignment_marks_create_marks = async (req, res, next) => {
+exports.termtest_marks_create_marks = async (req, res, next) => {
   try {
-    const assignmentMarks = new AssignmentMarks({
+    const termTestMarks = new TermTestMarks({
       _id: new mongoose.Types.ObjectId(),
-      assignmentName: req.body.assignmentName,
+      admissionNumber: req.body.admissionNumber,
       grade: req.body.grade,
       class: req.body.class,
-      subject: req.body.subject,
-      marks: req.body.marks,
-      user: req.userData.userId
+      year: req.body.year,
+      term: req.body.term,
+      marks: req.body.marks
     });
 
-    const savedMarks = await assignmentMarks.save();
+    const savedMarks = await termTestMarks.save();
 
     res.status(200).json({
       message: "Successfully added assignment marks.",
