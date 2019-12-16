@@ -194,7 +194,7 @@ exports.students_get_students_byclass = async (req, res, next) => {
 
     res.status(200).json({
       count: students.length,
-      student: students
+      students: students
     });
   } catch (error) {
     console.log(error);
