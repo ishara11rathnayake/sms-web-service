@@ -184,3 +184,22 @@ exports.students_get_student_by_parentId = async (req, res, next) => {
     });
   }
 };
+
+exports.students_get_students_byclass = async (req, res, next) => {
+  try {
+    const students = await Student.find({
+      grade: req.query.grade,
+      class: req.query.class
+    });
+
+    res.status(200).json({
+      count: students.length,
+      student: students
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error
+    });
+  }
+};

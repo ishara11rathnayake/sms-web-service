@@ -99,5 +99,10 @@ router.get(
   checkAuth,
   StudentController.students_get_student_by_parentId
 );
+router.get(
+  "/student/get/byclass",
+  checkAuth,
+  StudentController.students_get_students_byclass
+);
 
 module.exports = router;
