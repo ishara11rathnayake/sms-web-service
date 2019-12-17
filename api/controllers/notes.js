@@ -136,6 +136,35 @@ exports.notes_delete_note = async (req, res, next) => {
   }
 };
 
+exports.notes_get_notes = async (req, res, next) => {
+  try {
+    const notes = await Note.find({
+      grade: req.query.grade,
+      class: req.query.class,
+      subject: req.query.subject
+    });
+    res.status(200).json({
+      count: notes.length,
+      notes: notes.map(note => {
+        return {
+          id: note._id,
+          subject: note.subject,
+          grade: note.grade,
+          class: note.class,
+          description: note.description,
+          notes: note.content,
+          userId: note.userId
+        };
+      })
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error
+    });
+  }
+};
+
 async function asyncForEach(array, callback) {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array);
