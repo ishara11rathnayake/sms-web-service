@@ -250,12 +250,6 @@ exports.students_get_student_by_addmission_number = async (req, res, next) => {
       admission_number: addmissionNumber
     }).populate("parent");
 
-    if (student.length == 0) {
-      return res.status(404).json({
-        message: "Student not found"
-      });
-    }
-
     res.status(200).json({
       students: student.map(student => {
         return {
