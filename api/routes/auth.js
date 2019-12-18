@@ -73,6 +73,11 @@ router.delete(
 );
 router.get("/parent", checkAuth, ParentController.parents_get_all);
 router.get("/parent/:parentId", checkAuth, ParentController.parents_get_parent);
+router.get(
+  "/parent/get/byuserid",
+  checkAuth,
+  ParentController.parents_get_parent_by_user_id
+);
 
 /**
  * manage students endpoints

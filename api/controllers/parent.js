@@ -120,3 +120,41 @@ exports.parents_get_all = async (req, res, next) => {
     });
   }
 };
+
+/**
+ * get parent by user id
+ */
+exports.parents_get_parent_by_user_id = async (req, res, next) => {
+  const userId = req.userData.userId;
+
+  try {
+    const parents = await Parent.find({ user: userId });
+
+    if (parent.length == 0) {
+      return res.status(404).json({
+        message: "Parent not found"
+      });
+    }
+
+    res.status(200).json({
+      count: parents.length,
+      parents: parents.map(parent => {
+        return {
+          parentId: parent._id,
+          fullname: parent.full_name,
+          nameinitials: parent.name_with_initial,
+          relationship: parent.relationship_to_student,
+          nic: parent.nic,
+          address: parent.address,
+          contact: parent.contact_number,
+          email: parent.email
+        };
+      })
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error
+    });
+  }
+};
