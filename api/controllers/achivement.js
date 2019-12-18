@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const Achivement = require("../models/achievement");
+const Student = require("../models/student");
 
 exports.achivements_add_achivement = async (req, res, next) => {
   try {
@@ -99,6 +100,25 @@ exports.achivements_add_achivement = async (req, res, next) => {
     }
     res.status(200).json({
       message: "Achivement added Successfully."
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error
+    });
+  }
+};
+
+exports.achivements_get_achivement_by_user_id = async (req, res, next) => {
+  try {
+    const userId = req.userData.userId;
+
+    const studentId = await Student.find({ user: userId }).select("_id");
+
+    const achivements = await Achivement.find({ studentId: studentId[0]._id });
+
+    res.status(200).json({
+      achivement: achivements
     });
   } catch (error) {
     console.log(error);
