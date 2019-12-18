@@ -243,7 +243,7 @@ exports.students_get_students_byclass = async (req, res, next) => {
  * get students details by addmission number
  */
 exports.students_get_student_by_addmission_number = async (req, res, next) => {
-  const addmissionNumber = req.params.addmissionNumber;
+  const addmissionNumber = req.query.addmissionNumber;
 
   try {
     const student = await Student.find({
