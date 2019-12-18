@@ -238,3 +238,54 @@ exports.students_get_students_byclass = async (req, res, next) => {
     });
   }
 };
+
+/**
+ * get students details by addmission number
+ */
+exports.students_get_student_by_addmission_number = async (req, res, next) => {
+  const addmissionNumber = req.params.addmissionNumber;
+
+  try {
+    const student = await Student.find({
+      admission_number: addmissionNumber
+    }).populate("parent");
+
+    if (!student) {
+      return res.status(404).json({
+        message: "Student not found"
+      });
+    }
+
+    res.status(200).json({
+      students: student.map(student => {
+        return {
+          studentId: student._id,
+          fullname: student.full_name,
+          nameinitials: student.name_with_initial,
+          gender: student.gender,
+          dob: student.dob,
+          grade: student.grade,
+          class: student.class,
+          admissionnumber: student.admission_number,
+          admissiondate: student.admission_date,
+          profileImage: student.profileImage,
+          parent: {
+            parentId: student.parent._id,
+            fullname: student.parent.full_name,
+            nameinitials: student.parent.name_with_initial,
+            relationship: student.parent.relationship_to_student,
+            nic: student.parent.nic,
+            address: student.parent.address,
+            contact: student.parent.contact_number,
+            email: student.parent.email
+          }
+        };
+      })
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error
+    });
+  }
+};
