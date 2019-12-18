@@ -126,11 +126,10 @@ exports.parents_get_all = async (req, res, next) => {
  */
 exports.parents_get_parent_by_user_id = async (req, res, next) => {
   const userId = req.userData.userId;
-
   try {
     const parents = await Parent.find({ user: userId });
 
-    if (parent.length == 0) {
+    if (parents.length == 0) {
       return res.status(404).json({
         message: "Parent not found"
       });
