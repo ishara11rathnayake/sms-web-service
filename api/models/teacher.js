@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const teacherSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   full_name: { type: String, required: true },
+  teacherid: {type: String, required: true},
   name_with_initial: { type: String, required: true },
   gender: { type: String, required: true },
   dob: { type: Date, required: true },
