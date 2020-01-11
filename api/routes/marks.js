@@ -16,5 +16,10 @@ router.post(
   checkAuth,
   TermTestMarksController.termtest_marks_create_marks
 );
+router.get(
+  "/termtest",
+  checkAuth,
+  TermTestMarksController.termtest_marks_get_termtest_marks
+);
 
 module.exports = router;
