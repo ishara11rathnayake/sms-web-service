@@ -116,6 +116,7 @@ exports.auth_teacher_register = async (req, res, next) => {
           if (savedUser) {
             let teacher = new Teacher({
               _id: new mongoose.Types.ObjectId(),
+              teacherid: req.body.teacherid,
               full_name: req.body.fullName,
               name_with_initial: req.body.nameWithInitial,
               gender: req.body.gender,

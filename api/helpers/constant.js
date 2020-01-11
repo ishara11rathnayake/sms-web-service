@@ -6,5 +6,5 @@ module.exports = Object.freeze({
   CASUAL_LEVE: "Casual Leave",
   DUTY_LEAVE: "Duty Leave",
   TEACHER: "Teacher",
-  Clerk: "Clerk"
+  Clerk: "Clerk"  
 });

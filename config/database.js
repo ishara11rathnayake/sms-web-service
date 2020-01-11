@@ -3,4 +3,6 @@ module.exports = {
     "mongodb+srv://ishara11rathnayake:" +
     process.env.MONGO_ATLAS_PW +
     "@node-shop-socjh.mongodb.net/SMS?retryWrites=true"
+
+  // database: "mongodb+srv://dinuka:"+process.env.MONGO_ATLAS_PW+"@smscluster-ucgfi.mongodb.net/test?retryWrites=true&w=majority"
 };
