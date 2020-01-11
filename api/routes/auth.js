@@ -109,5 +109,10 @@ router.get(
   checkAuth,
   StudentController.students_get_students_byclass
 );
+router.get(
+  "/student/get/byaddmissionnumber",
+  checkAuth,
+  StudentController.students_get_student_by_addmission_number
+);
 
 module.exports = router;
