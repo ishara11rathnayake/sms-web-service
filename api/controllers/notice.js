@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const Notice = require("../models/notice");
+const Teacher = require("../models/teacher")
 
 /**
  * create new notice
@@ -17,11 +18,23 @@ exports.notices_create_notice = async (req, res, next) => {
       });
     }
 
+    let username;
+
+    if (req.userData.userType == "Teacher"){
+      const user = await Teacher.find({user: req.userData.userId})
+      username = user[0].name_with_initial;
+    } else if(req.userData.userType == "Admin"){
+      username = "Admin"
+    } else if(req.userData.userType == "Clerk"){
+      const user = await Teacher.find({user: req.userData.userId})
+      username = user[0].name_with_initial;
+    }
+
     const notice = new Notice({
       _id: new mongoose.Types.ObjectId(),
       title: req.body.title,
       details: req.body.details,
-      posted_by: req.body.postedby,
+      posted_by: username,
       date: new Date(),
       user: req.userData.userId
     });
@@ -120,7 +133,7 @@ exports.notices_get_notice = async (req, res, next) => {
  */
 exports.notices_get_all = async (req, res, next) => {
   try {
-    const notices = await Notice.find();
+    const notices = await Notice.find().sort( { date: -1 } );
 
     res.status(200).json({
       count: notices.length,

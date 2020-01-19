@@ -29,7 +29,7 @@ exports.auth_login = async (req, res, next) => {
   }
   try {
     const user = await User.find({ username: req.body.username });
-
+    console.log(user);
     if (user.length < 1) {
       return res.status(401).json({
         message: "Auth failed"
@@ -38,6 +38,7 @@ exports.auth_login = async (req, res, next) => {
 
     bcrypt.compare(req.body.password, user[0].password, (err, result) => {
       if (err) {
+        console.log(err);
         return res.status(401).json({
           message: "Auth failed"
         });
