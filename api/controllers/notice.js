@@ -20,6 +20,9 @@ exports.notices_create_notice = async (req, res, next) => {
 
     let username;
 
+    console.log(req.userData.userType);
+
+
     if (req.userData.userType == "Teacher"){
       const user = await Teacher.find({user: req.userData.userId})
       username = user[0].name_with_initial;
@@ -29,7 +32,7 @@ exports.notices_create_notice = async (req, res, next) => {
       const user = await Teacher.find({user: req.userData.userId})
       username = user[0].name_with_initial;
     }
-
+    console.log(username);
     const notice = new Notice({
       _id: new mongoose.Types.ObjectId(),
       title: req.body.title,
