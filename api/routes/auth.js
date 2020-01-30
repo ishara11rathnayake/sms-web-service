@@ -40,6 +40,7 @@ router.get(
   checkAuth,
   TeacherController.teachers_get_teacher
 );
+router.get("/teacher/byteacherId/byteacherId", checkAuth, TeacherController.teachers_get_teacher_by_teacher_id)
 
 /**
  * manage clerk endpoints
