@@ -27,8 +27,8 @@ const sendMail = async (sendingTo, subject, output) => {
     // });
 
     let info = await transporter.sendMail({
-      from: '"Ishara Rathnayake" <noreply.dream11crusher@gmail.com>',
-      replyTo: "noreply.dream11crusher@gmail.com",
+      from: '"IMS | Pitabeddara Secondary School" <noreply.sms311test@gmail.com>',
+      replyTo: "noreply.sms311test@gmail.com",
       to: sendingTo,
       subject: subject,
       html: output
