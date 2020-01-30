@@ -90,7 +90,7 @@ exports.teachers_get_teacher = async (req, res, next) => {
     res.status(200).json({
       teachers: teacher.map((teacher, i) => {
         return {
-          teacherid: i + 1,
+          teacherid: teacher.teacherid,
           id: teacher._id,
           fullname: teacher.full_name,
           nameinitials: teacher.name_with_initial,
