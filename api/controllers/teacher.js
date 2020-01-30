@@ -128,7 +128,7 @@ exports.teachers_get_all = async (req, res, next) => {
       count: teachers.length,
       teachers: teachers.map((teacher, i) => {
         return {
-          teacherid: i + 1,
+          teacherid: teacher.teacherid,
           id: teacher._id,
           fullname: teacher.full_name,
           nameinitials: teacher.name_with_initial,
