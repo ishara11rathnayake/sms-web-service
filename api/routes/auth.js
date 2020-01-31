@@ -66,6 +66,7 @@ router.get("/clerk/byclerkid/byclerkid", checkAuth, ClerkController.clerks_get_c
 router.patch(
   "/parent/:parentId",
   checkAuth,
+  upload,
   ParentController.parents_update_parent
 );
 router.delete(

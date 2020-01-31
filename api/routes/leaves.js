@@ -6,6 +6,8 @@ const { upload } = require("../helpers/uploadNotes");
 const LeavesController = require("../controllers/leaves");
 
 router.post("/", checkAuth, upload, LeavesController.leaves_request_leave);
+router.post("/clerk", checkAuth, upload, LeavesController.leaves_request_leave_clerk);
+
 router.get("/pending", checkAuth, LeavesController.leaves_get_pending_leaves);
 router.get(
   "/byuserid",

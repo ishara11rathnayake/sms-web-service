@@ -15,7 +15,32 @@ exports.leaves_request_leave = async (req, res, next) => {
       reason: req.body.reason,
       assignedWorkId: req.file.path,
       userId: req.userData.userId,
-      status: constants.PENDING
+      status: constants.APPROVED
+    });
+
+    const savedLeave = await leave.save();
+
+    res.status(200).json({
+      message: "Leave requested successfully.",
+      leave: savedLeave
+    });
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+exports.leaves_request_leave_clerk = async (req, res, next) => {
+  try {
+    const leave = new Leave({
+      _id: new mongoose.Types.ObjectId(),
+      commencedDate: req.body.commencedDate,
+      assumedDate: req.body.assumedDate,
+      appliedDate: req.body.appliedDate,
+      noOfDays: req.body.noOfDays,
+      leaveType: req.body.leaveType,
+      reason: req.body.reason,
+      userId: req.userData.userId,
+      status: constants.APPROVED
     });
 
     const savedLeave = await leave.save();
