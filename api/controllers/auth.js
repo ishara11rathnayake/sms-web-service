@@ -35,6 +35,7 @@ exports.auth_login = async (req, res, next) => {
         message: "Auth failed"
       });
     }
+    console.log(req.body.password)
 
     bcrypt.compare(req.body.password, user[0].password, (err, result) => {
       if (err) {
@@ -339,6 +340,8 @@ exports.auth_student_register = async (req, res, next) => {
       length: 10,
       numbers: true
     });
+
+    console.log(password);
 
     bcrypt.hash(password, 10, async (err, hash) => {
       if (err) {

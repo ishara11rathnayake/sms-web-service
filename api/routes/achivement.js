@@ -10,5 +10,10 @@ router.get(
   checkAuth,
   AchivementController.achivements_get_achivement_by_user_id
 );
+router.get(
+  "/byaddmissionnumber",
+  checkAuth,
+  AchivementController.achivements_get_achivement_by_addmission_number
+);
 
 module.exports = router;

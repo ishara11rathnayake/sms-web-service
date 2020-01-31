@@ -25,4 +25,6 @@ router.get(
 
 router.get("/termTestByStudentId", checkAuth, TermTestMarksController.termtest_marks_by_student_id);
 
+router.get("/termTestMarksForYear", checkAuth, TermTestMarksController.termtest_marks_for_year);
+
 module.exports = router;

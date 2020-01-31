@@ -77,3 +77,27 @@ exports.termtest_marks_by_student_id = async (req, res, next) => {
     });
   }
 }
+
+exports.termtest_marks_for_year = async (req, res, next) => {
+  try {
+    const year = req.query.year;
+    const grade = req.query.grade;
+    const admissionNumber = req.query.admissionNumber;
+
+    const termTestMarks = await TermTestMarks.find({
+      admissionNumber: admissionNumber,
+      grade: grade,
+      year: year
+    })
+
+    res.status(200).json({
+      termTestMarks: termTestMarks
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error
+    });
+  }
+}

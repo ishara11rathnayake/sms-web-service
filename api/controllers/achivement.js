@@ -127,3 +127,29 @@ exports.achivements_get_achivement_by_user_id = async (req, res, next) => {
     });
   }
 };
+
+exports.achivements_get_achivement_by_addmission_number = async (req, res, next) => {
+  try {
+    const addmissionNumber = req.query.addmissionNumber;
+
+    const studentId = await Student.find({ admission_number: addmissionNumber }).select("_id");
+
+    if(studentId.length > 0){
+      const achivements = await Achivement.find({ studentId: studentId[0]._id });
+
+      res.status(200).json({
+        achivement: achivements
+      });
+    } else {
+      res.status(404).json({
+        error: "Student not found"
+      })
+    }
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error
+    });
+  }
+}
