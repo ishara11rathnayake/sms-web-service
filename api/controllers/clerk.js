@@ -116,7 +116,7 @@ exports.clerks_get_clerk = async (req, res, next) => {
 };
 
 /**
- * get all teachers details
+ * get all clerks details
  */
 exports.clerk_get_all = async (req, res, next) => {
   try {
@@ -124,10 +124,54 @@ exports.clerk_get_all = async (req, res, next) => {
 
     res.status(200).json({
       count: clerks.length,
-      clerks: clerks.map((clerk, i) => {
+      clerks: clerks.map(clerk => {
         return {
-          id: i + 1,
+          id: clerk.clerkId,
           clerkId: clerk._id,
+          fullname: clerk.full_name,
+          nameinitials: clerk.name_with_initial,
+          gender: clerk.gender,
+          dob: clerk.dob,
+          firstadmission: clerk.first_appoinment_date,
+          scladmission: clerk.appoinment_date_to_school,
+          position: clerk.position,
+          nic: clerk.nic,
+          address: clerk.address,
+          contact: clerk.contact_number,
+          email: clerk.email,
+          user: clerk.user,
+          file: clerk.profileImage
+        };
+      })
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error
+    });
+  }
+};
+
+/**
+ * get clerk details by clerkId
+ */
+exports.clerks_get_clerk_byclerkid = async (req, res, next) => {
+  const clerkId = req.query.clerkId;
+
+  try {
+    const clerks = await Clerk.find({ clerkId: clerkId });
+
+    if (!clerks) {
+      return res.status(404).json({
+        message: "Clerk not found"
+      });
+    }
+
+    res.status(200).json({
+      clerks: clerks.map(clerk => {
+        return {
+          id: clerk._id,
+          clerkId: clerk.clerkId,
           fullname: clerk.full_name,
           nameinitials: clerk.name_with_initial,
           gender: clerk.gender,

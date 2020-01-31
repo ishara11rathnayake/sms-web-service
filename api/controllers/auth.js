@@ -202,6 +202,7 @@ exports.auth_clerk_register = async (req, res, next) => {
           if (savedUser) {
             let clerk = new Clerk({
               _id: new mongoose.Types.ObjectId(),
+              clerkId: req.body.clerkId,
               full_name: req.body.fullName,
               name_with_initial: req.body.nameWithInitial,
               gender: req.body.gender,

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const clerkSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
+  clerkId: {type: String, required: true},
   full_name: { type: String, required: true },
   name_with_initial: { type: String, required: true },
   gender: { type: String, required: true },
