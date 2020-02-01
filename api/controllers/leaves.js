@@ -129,9 +129,13 @@ exports.leaves_reject_leave = async (req, res, next) => {
 
 exports.leaves_get_leaves_by_userid = async (req, res, next) => {
   try {
-    const userId = req.query.userId;
+    const userId = req.userData.userId;
+
+    console.log(userId);
 
     const leaves = await Leave.find({ userId: userId });
+
+    console.log(leaves);
 
     res.status(200).json({
       count: leaves.length,

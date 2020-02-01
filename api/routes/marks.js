@@ -11,6 +11,12 @@ router.post(
   AssignmentsMarksController.assignment_marks_create_marks
 );
 
+router.get(
+  "/assignment",
+  checkAuth,
+  AssignmentsMarksController.assignment_marks_get_marks
+);
+
 router.post(
   "/termtest",
   checkAuth,
