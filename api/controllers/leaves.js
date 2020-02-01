@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const Leave = require("../models/leaves");
+const User = require("../models/user");
+const Teacher = require("../models/teacher");
+const Clerk = require("../models/clerk");
 
 const constants = require("../helpers/constant");
 
@@ -15,7 +18,7 @@ exports.leaves_request_leave = async (req, res, next) => {
       reason: req.body.reason,
       assignedWorkId: req.file.path,
       userId: req.userData.userId,
-      status: constants.APPROVED
+      status: constants.PENDING
     });
 
     const savedLeave = await leave.save();
@@ -40,7 +43,7 @@ exports.leaves_request_leave_clerk = async (req, res, next) => {
       leaveType: req.body.leaveType,
       reason: req.body.reason,
       userId: req.userData.userId,
-      status: constants.APPROVED
+      status: constants.PENDING
     });
 
     const savedLeave = await leave.save();
@@ -56,7 +59,17 @@ exports.leaves_request_leave_clerk = async (req, res, next) => {
 
 exports.leaves_get_pending_leaves = async (req, res, next) => {
   try {
-    const pendingLeaves = await Leave.find({ status: constants.PENDING });
+    const pendingLeaves = await Leave.find({ status: constants.PENDING }).populate("userId");
+
+    // const user = await User.findById(leave.userId);
+    // if(user.user_type == "Teacher"){
+    //   const teacher = await Teacher.find({ user: userId });
+    //   name = teacher[0].name_with_initial;
+    // } else {
+    //   const clerk = await Clerk.find({ user: userId });
+    //   name = clerk[0].name_with_initial;
+    // }
+    // console.log(name);
 
     res.status(200).json({
       count: pendingLeaves.length,
@@ -82,7 +95,7 @@ exports.leaves_get_pending_leaves = async (req, res, next) => {
 
 exports.leaves_approve_leave = async (req, res, nexr) => {
   try {
-    const leaveId = req.query.leaveId;
+    const leaveId = req.body.leaveId;
 
     await Leave.updateOne(
       { _id: leaveId },
@@ -99,7 +112,7 @@ exports.leaves_approve_leave = async (req, res, nexr) => {
 
 exports.leaves_reject_leave = async (req, res, next) => {
   try {
-    const leaveId = req.query.leaveId;
+    const leaveId = req.body.leaveId;
 
     await Leave.updateOne(
       { _id: leaveId },
