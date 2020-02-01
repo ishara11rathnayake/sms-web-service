@@ -160,7 +160,6 @@ exports.teachers_get_all = async (req, res, next) => {
  */
 exports.teachers_get_teacher_by_teacher_id = async (req, res, next) => {
   const teacherid = req.query.teacherid;
-
   try {
     const teacher = await Teacher.find({
       teacherid: teacherid

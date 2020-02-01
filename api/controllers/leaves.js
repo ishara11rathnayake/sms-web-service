@@ -60,7 +60,7 @@ exports.leaves_get_pending_leaves = async (req, res, next) => {
 
     res.status(200).json({
       count: pendingLeaves.length,
-      pendingLeaves: pendingLeaves.map(leave => {
+      leaves: pendingLeaves.map(leave => {
         return {
           id: leave._id,
           userId: leave.userId,
